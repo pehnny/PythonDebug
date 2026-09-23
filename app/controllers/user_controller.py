@@ -66,7 +66,11 @@ def login(userService: UserService):
 
         if user is not None:
             token = jwt.encode({
-                'user': user.get_json_parsable(),
+                # Exposait le hash du password dans le token
+                # via get_json_parsable() qui vient du user_dto
+                # En général on évite d'exposer plus que ce qui est nécessaire dans le token
+                # Donc en gros userid/roles
+                # 'user': user.get_json_parsable(),
                 'userid': user.userid,
                 'username': user.username,
                 'roles': user.get_roles(),

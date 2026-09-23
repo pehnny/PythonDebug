@@ -1,0 +1,10 @@
+.description {
+    color: var(--text);
+    font-size: 14px;
+    max-width: 45ch;
+}
+
+.quantity {
+    width: 60px;
+    margin-right: 5px;
+}

@@ -26,7 +26,8 @@ class UserDTO(AbstractDTO):
         user_dto.userid = user.userid
         user_dto.username = user.username
         user_dto.useremail = user.useremail
-        user_dto.userpassword = user.userpassword
+        # Exposition de données sensible dans un DTO.
+        # user_dto.userpassword = user.userpassword
         user_dto.userdescription = user.userdescription
         user_dto.userroles = []
 

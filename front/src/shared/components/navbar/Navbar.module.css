@@ -1,0 +1,36 @@
+.Navbar {
+    padding-top: 25px;
+    padding-bottom: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+
+    ul {
+        display: flex;
+        list-style: none;
+    }
+}
+
+.NavbarContent {
+    align-self: flex-end;
+    margin: 0;
+    padding: 0px;
+
+    gap: 25px;
+}
+
+.NavbarBrand {
+    font-weight: 600;
+    color: var(--text-h);
+}
+
+.badge {
+    display: inline-block;
+    background: var(--danger);
+    color: white;
+    border-radius: 10px;
+    padding: 0px 6px;
+    margin-left: 4px;
+    font-size: 13px;
+}

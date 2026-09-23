@@ -1,0 +1,22 @@
+main {
+  flex-grow: 1;
+  padding-block: 20px;
+}
+
+main section + section {
+  margin-top: 32px;
+}
+
+form > div {
+  display: flex;
+  max-width: 500px;
+  margin-bottom: 5px;
+}
+
+form > div > label {
+  flex-basis: 140px;
+}
+
+form > div > input {
+  flex-grow: 1;
+}

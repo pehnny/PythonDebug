@@ -11,6 +11,16 @@
             "request": "launch",
             "program": "./runserver.py",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Attach Flask (Docker)",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": { "host": "localhost", "port": 5678 },
+            "pathMappings": [
+                { "localRoot": "${workspaceFolder}", "remoteRoot": "/app" }
+            ],
+            "justMyCode": false
         }
     ]
 }

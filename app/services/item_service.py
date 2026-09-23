@@ -21,11 +21,15 @@ class ItemService(BaseService):
         return len(Item.query.all())
 
     def search(self, query):
-        sql = text("SELECT itemid, itemname, itemdescription, itemstock, itemprice "
-                   "FROM items WHERE itemname LIKE '%" + query + "%'")
-        rows = db.session.execute(sql).mappings().all()
-        return [dict(row) for row in rows]
-
+        # Injection SQL !!!
+        # sql = text("SELECT itemid, itemname, itemdescription, itemstock, itemprice "
+        #            "FROM items WHERE itemname LIKE '%" + query + "%'")
+        # rows = db.session.execute(sql).mappings().all()
+        # return [dict(row) for row in rows]
+        like = f"%{query}%"
+        items = Item.query.filter_by(Item.itemname.ilike(like)).all()
+        return [ItemDTO.build_from_entity(item) for item in items]
+    
     def find_low_stock(self, threshold):
         result = []
         for item in Item.query.all():

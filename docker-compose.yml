@@ -1,9 +1,48 @@
 version: '3.8'
 
 services:
+  app:
+    image: python:3.13.14-trixie
+    command: "bash -c 'pip install  -r requirements.txt && opentelemetry-instrument python -m debugpy --listen 0.0.0.0:5678 runserver.py'"
+    working_dir: /app
+    volumes:
+      - ./:/app
+    ports:
+      - 8080:8080
+      - 5678:5678
+    depends_on:
+      - jaeger
+      - db
+    environment:
+      OTEL_SERVICE_NAME: flask-api
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4317
+      OTEL_TRACES_EXPORTER: otlp
+      OTEL_METRICS_EXPORTER: none
+      OTEL_LOGS_EXPORTER: none
+
+  front:
+    build:
+      context: ./front
+      dockerfile: .dockerfile
+    command: npm run start
+    working_dir: /app
+    volumes:
+      - ./front:/app
+      - /app/node_modules
+    ports:
+      - 5173:5173
+    depends_on:
+      - app
+
+  jaeger:
+    image: jaegertracing/jaeger:latest
+    ports:
+      - "16686:16686"
+
   db:
     image: postgres:13.7
     environment:
+      # Si c'est un container de prod -> mots de largement passe insuffisant
       POSTGRES_PASSWORD: 1234
       POSTGRES_USER: app
       POSTGRES_DB: app

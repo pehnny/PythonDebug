@@ -21,8 +21,12 @@ def auth_required(level="USER", or_is_current_user=False):
             if 'Authorization' in request.headers:
                 token = request.headers['Authorization']
 
-            if request.args.get('token'):
-                token = request.args.get('token')
+            # Sera enregistré dans les logs du serveur !
+            # donc le JWT est exposé.
+            # Ne jamais authorisé de passer un token via les query strings
+            # TOUJOURS dans le header ou les cookies.
+            # if request.args.get('token'):
+            #     token = request.args.get('token')
 
             if not token:
                 return jsonify({'error': 'missing token'}), 401
