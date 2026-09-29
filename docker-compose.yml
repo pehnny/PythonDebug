@@ -1,3 +1,5 @@
+name: debug
+
 version: '3.8'
 
 services:
@@ -53,5 +55,17 @@ services:
     volumes:
       - app-volume:/var/lib/postgresql/data
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@email.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 8081:80
+    volume:
+     - pgadmin-volume: /var/lib/pgadmin
+     - ./pgadmin_config/servers.json: /pgadmin4/server.json
+
 volumes:
   app-volume:
+  pgadmin-volume:

@@ -365,3 +365,28 @@ function isTokenExpired(exp) {
 }
 
 ```
+
+
+# Docker pgadmin
+[https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html]
+
+## volumes
+```yml
+...
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: example@email.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 8081:80
+    volume:
+     - pgadmin-volume: /var/lib/pgadmin
+     - ./pgadmin_config/servers.json: /pgadmin4/server.json
+
+volumes:
+  app-volume:
+  pgadmin-volume:
+```
+
+Le volume *custom* `pgadmin-volume: /var/lib/pgadmin` nécessite d'être ajouté à la liste des *volumes*, tandis que le volume `./pgadmin_config/servers.json: /pgadmin4/server.json` pointe directement vers un volume dans le dossier local (./) donc ne doit pas être ajouté à la liste des *volumes*.
